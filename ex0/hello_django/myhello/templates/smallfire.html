@@ -1,20 +1,138 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant">
 <head>
-    <title>彭小火67</title>
+    <meta charset="UTF-8">
+    <title>屁眼蜜</title>
     <style>
+        @import "https://fonts.googleapis.com/css2?family=Honk&display=swap";
         body {
-            /* 優先使用微軟正黑體，沒有的話用無襯線字體 */
-            font-family: "Microsoft JhengHei", sans-serif;
-            font-size: 18px; /* 設定字體大小 */
-            color: #333333;  /* 設定字體顏色 */
+            margin: 0;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: sans-serif;
         }
+
+        #game-canvas {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            background: #000;
+            border: 10px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* 圖片層通用設定 */
+        .img-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 保持比例填滿並裁切 */
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        /* 初始照片：顯示中間 */
+        #bg-initial { 
+            z-index: 1; 
+            opacity: 1; 
+            object-position: center; /* 這裡設定顯示圖片的正中心 */
+        }
+
+        /* 最終照片：顯示上半部 */
+        #bg-final { 
+            z-index: 1; 
+            opacity: 0; 
+            object-position: center 20%; /* 這裡設定對齊頂部，只顯示上半部分 */
+        }
+
+        /* 遮罩效果層 (67.png) */
+        #effect-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("{% static '67.png' %}");
+            background-size: cover;
+            background-position: center;
+            z-index: 5;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.8);
+            transition: all 1s ease-in;
+        }
+
+        #effect-overlay.active {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        /* 觸發按鈕 (cigarette.png) */
+        #btn-trigger {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            width: 100px;
+            cursor: pointer;
+            z-index: 10;
+            transition: transform 0.2s;
+            /* 如果你的香菸圖片有白背景，可以取消下面這行的註解 */
+            /* mix-blend-mode: multiply; */
+        }
+
+        #btn-trigger:hover { transform: scale(1.1); }
+        #btn-trigger:active { transform: scale(0.9); }
+    
+    h1 {
+        
+        position: absolute; /* 讓它脫離一般排版流 */
+        top: 20px;          /* 距離頂部 20px */
+        left: 50%;          /* 置中 */
+        transform: translateX(-50%); /* 修正置中位移 */
+        z-index: 100;
+        font-family: "Honk";
+        font-size: 50px;
+        color: red;    /* 沒有作用，因為彩色字型的色彩由自行定義 */
+    }
     </style>
 </head>
 <body>
-    <h1>676767彭小火676767</h1>
-    <img src="{% static 'smallfire.gif' %}" alt="Logo">
-    
+    <h1>676767 SmallFire 676767<br></h1>
+    {% load static %}
+    <div id="game-canvas">
+        <img id="bg-initial" class="img-layer" src="{% static 'smallfire.gif' %}">
+        <img id="bg-final" class="img-layer" src="{% static 'smallfire2.gif' %}">
+        <div id="effect-overlay"></div>
+        <img id="btn-trigger" src="{% static 'cigarette.png' %}" alt="點我觸發">
+    </div>
+
+    <script>
+        const btn = document.getElementById('btn-trigger');
+        const overlay = document.getElementById('effect-overlay');
+        const imgInitial = document.getElementById('bg-initial');
+        const imgFinal = document.getElementById('bg-final');
+
+        btn.addEventListener('click', () => {
+            overlay.classList.add('active');
+
+            setTimeout(() => {
+                imgInitial.style.opacity = '0';
+                imgFinal.style.opacity = '1';
+            }, 800);
+
+            setTimeout(() => {
+                overlay.style.transition = "opacity 2s ease-out, transform 2s ease-out";
+                overlay.style.opacity = '0';
+                overlay.style.transform = 'scale(1.5)';
+            }, 1800);
+
+            btn.style.display = 'none';
+        });
+    </script>
 </body>
 </html>
