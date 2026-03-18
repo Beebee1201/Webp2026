@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -49,14 +50,14 @@ def add_post(request):
 @api_view(['GET'])
 def list_post(request):
     posts = Post.objects.all().values()
-    # return JsonResponse(list(posts), safe=False)
-    return Response({"data": 
-                        json.dumps(
-                            list(posts), 
-                            sort_keys = True, 
-                            indent = 1, 
-                            cls = DjangoJSONEncoder)}, 
-                    status=status.HTTP_200_OK)
+    return JsonResponse(list(posts), safe=False)
+    # return Response({"data": 
+    #                     json.dumps(
+    #                         list(posts), 
+    #                         sort_keys = True, 
+    #                         indent = 1, 
+    #                         cls = DjangoJSONEncoder)}, 
+    #                 status=status.HTTP_200_OK)
 
 
 # Create your views here.
