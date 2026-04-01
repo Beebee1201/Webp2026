@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聖誕樹</title>
+</head>
+<body>
+    <h1>ex#4</h1>
+
+    <script>
+        
+        function tree(n) {
+            printTreeTop(n);
+            printTreeBottom(n);
+        }
+
+    
+        function printTreeTop(n) {
+            for (let i = 1; i <= n; i++) {
+            
+                let spaces = repeatchar(n - i, ' ');
+        
+                let stars = repeatchar(2 * i - 1, '*');
+                
+                console.log(spaces + stars);
+            }
+        }
+
+       
+        function printTreeBottom(n) {
+            let result = "";
+            let spaces = repeatchar(n - 1, ' ');
+            console.log(repeatchar(n,spaces+'*\n'));
+        }
+
+       
+        function repeatchar(n, arg_char) {
+            let result = '';
+            for (let i = 0; i < n; i++) {
+                result += arg_char;
+            }
+            return result;
+        }
+
+
+        console.log("聖誕樹");
+        tree(6);
+    </script>
+</body>
+</html>
