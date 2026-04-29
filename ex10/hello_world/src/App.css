@@ -1,0 +1,28 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* 增加一些內邊距，防止文字貼齊邊緣 */
+  padding: 20px;
+}
+
+.cgu-title {
+  color: red;
+  /* 根據新圖片的文字量，縮小字體大小 */
+  font-size: 60px;
+  font-weight: bold;
+  margin: 0;
+  /* 讓滑鼠游標變成手指形狀，提示可點擊 */
+  cursor: pointer;
+  /* 確保長文字能正常換行 */
+  word-wrap: break-word;
+  max-width: 90%; /* 限制最大寬度，讓它提早換行 */
+  line-height: 1.2; /* 調整行高，讓多行時更好看 */
+}
